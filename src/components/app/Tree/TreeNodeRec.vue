@@ -29,18 +29,6 @@ const checkedComputed = computed({
 /**
  * Determine check state of descendants
  */
-function isAllChildrenChecked(item: NodeData): boolean {
-  if (item.children.length === 0) {
-    return false;
-  }
-
-  const isAllChecked = item.children.every((child) => {
-    return child.checked;
-  })
-
-  return isAllChecked;
-}
-
 function isSomeDescendantsChecked(item: NodeData): boolean {
   for (const child of item.children) {
     if (child.checked) {
@@ -53,6 +41,18 @@ function isSomeDescendantsChecked(item: NodeData): boolean {
   }
 
   return false;
+}
+
+function isAllChildrenChecked(item: NodeData): boolean {
+  if (item.children.length === 0) {
+    return true;
+  }
+
+  const isAllChecked = item.children.every((child) => {
+    return child.checked;
+  })
+
+  return isAllChecked;
 }
 
 
@@ -123,7 +123,7 @@ watch([someDescendantsChecked, childrenAllChecked], () => {
     <input type="checkbox" v-model="checkedComputed" @change="onChange" :indeterminate="indeterminate" class="w-4 h-4 rounded focus:ring-2 hover:cursor-pointer
               text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500
               dark:bg-gray-700 dark:border-gray-600
-              dark:focus:ring-blue-600 dark:ring-offset-gray-800" :class="indeterminate ? 'text-blue-600' : ''" />
+              dark:focus:ring-blue-600 dark:ring-offset-gray-800" :class="indeterminate ? 'text-slate-500' : ''" />
     <label class="ml-1">
       {{ item.name }}
     </label>
