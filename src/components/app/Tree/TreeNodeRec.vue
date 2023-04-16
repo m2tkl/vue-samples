@@ -101,25 +101,29 @@ const indeterminate = computed(() => {
 watch([someDescendantsChecked, childrenAllChecked], () => {
   if (!someDescendantsChecked.value) {
     emits('check', false);
-  } else {
-    emits('check', childrenAllChecked.value ? true : false);
+    return;
   }
+
+  emits('check', childrenAllChecked.value ? true : false);
 })
 
 </script>
 
 <template>
   <!-- Tree item contents -->
-  <div class="flex items-center">
+  <div class="flex items-center
+      h-8 bg-slate-100
+      border-b border-slate-200
+      pl-2">
 
     <!-- Indent -->
     <div :style="{ width: indent * indentWidth + 'px' }"></div>
 
     <!-- Contents -->
     <input type="checkbox" v-model="checkedComputed" @change="onChange" :indeterminate="indeterminate" class="w-4 h-4 rounded focus:ring-2 hover:cursor-pointer
-          text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500
-          dark:bg-gray-700 dark:border-gray-600
-          dark:focus:ring-blue-600 dark:ring-offset-gray-800" :class="indeterminate ? 'text-blue-600 ' : ''" />
+              text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500
+              dark:bg-gray-700 dark:border-gray-600
+              dark:focus:ring-blue-600 dark:ring-offset-gray-800" :class="indeterminate ? 'text-blue-600' : ''" />
     <label class="ml-1">
       {{ item.name }}
     </label>
