@@ -3,5 +3,5 @@ export type NodeData = {
   name: string;
   opened: boolean;
   checked: boolean;
-  children: NodeData[]
+  children: NodeData[];
 }

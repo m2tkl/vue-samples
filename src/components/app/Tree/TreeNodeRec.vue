@@ -4,7 +4,7 @@ import { NodeData } from './types';
 
 interface Props {
   item: NodeData;
-  indent: number
+  indent: number;
 }
 
 interface Emits {
@@ -22,7 +22,7 @@ const indentWidth = 16;
 const checkedComputed = computed({
   get: () => props.item.checked,
   set: (newState) => {
-    emits('check', newState)
+    emits('check', newState);
   }
 })
 
@@ -35,7 +35,7 @@ function isAllChildrenChecked(item: NodeData): boolean {
   }
 
   const isAllChecked = item.children.every((child) => {
-    return child.checked
+    return child.checked;
   })
 
   return isAllChecked;
@@ -44,15 +44,15 @@ function isAllChildrenChecked(item: NodeData): boolean {
 function isSomeDescendantsChecked(item: NodeData): boolean {
   for (const child of item.children) {
     if (child.checked) {
-      return true
+      return true;
     }
 
     if (isSomeDescendantsChecked(child)) {
-      return true
+      return true;
     }
   }
 
-  return false
+  return false;
 }
 
 
@@ -66,11 +66,11 @@ const onChange = () => {
   }
 
   if (someDescendantsChecked.value) {
-    updateCheckStateOfDescendants(props.item, true)
+    updateCheckStateOfDescendants(props.item, true);
     return;
   }
 
-  updateCheckStateOfDescendants(props.item, true)
+  updateCheckStateOfDescendants(props.item, true);
 }
 
 /**
@@ -79,7 +79,7 @@ const onChange = () => {
 function updateCheckStateOfDescendants(item: NodeData, value: boolean) {
   for (const child of item.children) {
     child.checked = value;
-    updateCheckStateOfDescendants(child, value)
+    updateCheckStateOfDescendants(child, value);
   }
 }
 
@@ -95,7 +95,7 @@ const someDescendantsChecked = computed(() => {
 })
 
 const indeterminate = computed(() => {
-  return someDescendantsChecked.value && !childrenAllChecked.value
+  return someDescendantsChecked.value && !childrenAllChecked.value;
 })
 
 watch([someDescendantsChecked, childrenAllChecked], () => {
@@ -117,9 +117,9 @@ watch([someDescendantsChecked, childrenAllChecked], () => {
 
     <!-- Contents -->
     <input type="checkbox" v-model="checkedComputed" @change="onChange" :indeterminate="indeterminate" class="w-4 h-4 rounded focus:ring-2 hover:cursor-pointer
-        text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500
-        dark:bg-gray-700 dark:border-gray-600
-        dark:focus:ring-blue-600 dark:ring-offset-gray-800" :class="indeterminate ? 'text-blue-600 ' : ''" />
+          text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500
+          dark:bg-gray-700 dark:border-gray-600
+          dark:focus:ring-blue-600 dark:ring-offset-gray-800" :class="indeterminate ? 'text-blue-600 ' : ''" />
     <label class="ml-1">
       {{ item.name }}
     </label>

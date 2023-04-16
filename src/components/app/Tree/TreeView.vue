@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TreeNodeRec from './TreeNodeRec.vue'
+import TreeNodeRec from './TreeNodeRec.vue';
 import { NodeData } from './types';
 
 interface Props {
-  items: Array<NodeData>
+  items: Array<NodeData>;
 }
 
 defineProps<Props>();
